@@ -1350,7 +1350,6 @@ app.post("/login", (req, res) => {
   );
 });
 
-
-app.listen(8080, () => {
-  console.log("Yey, your server is running on port 8080");
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Yey, your server is running on port 5000");
 });
