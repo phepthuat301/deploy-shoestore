@@ -1034,7 +1034,7 @@ app.post("/userresetpassword", (req, res) => {
           text:
             'Bạn nhận được mail này vì bạn (hoặc một ai đó) đã gửi yêu cầu reset mật khẩu tài khoản của bạn.\n\n'
             + 'Làm ơn hãy nhấp vào đường dẫn sau, hoặc dán nó vào trình duyệt của bạn để hoàn thành quá trình: \n\n'
-            + `http://113.165.38.131:3001/resetpwd/${token}\n\n`
+            + `http://localhost:3001/resetpwd/${token}\n\n`
             + 'Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này và kiểm tra lại tài khoản của bạn.\n\n'
             + 'Lưu Ý: Đường dẫn này chỉ có hiệu lực trong vòng 5 phút, tính từ lúc gửi yêu cầu!\n',
         };
