@@ -5,14 +5,12 @@ const app = express();
 const cors = require("cors");
 const db = require("./config");
 const fileUpload = require('express-fileupload');
-const path = require('path')
 //
 app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 
 
-app.use(express.static(path.join(__dirname, 'build')));
 //ADD IMAGE
 app.post('/upload', (req, res) => {
   if (req.files === null) {
