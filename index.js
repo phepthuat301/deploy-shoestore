@@ -1,5 +1,3 @@
-// const bodyParser = require("body-parser");
-const path = require('path');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const express = require("express");
@@ -7,21 +5,14 @@ const app = express();
 const cors = require("cors");
 const db = require("./config");
 const fileUpload = require('express-fileupload');
-//const { reset } = require("nodemon");
+const path = require('path')
 //
 app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 
-//
+
 app.use(express.static(path.join(__dirname, 'build')));
-
-
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
-
-
 //ADD IMAGE
 app.post('/upload', (req, res) => {
   if (req.files === null) {
@@ -200,13 +191,33 @@ app.post("/createuser", (req, res) => {
   const password = req.body.password;
   const role = req.body.role;
   db.query(
-    "INSERT INTO user (hoten, diachi, sodienthoai, email, username, password, role) VALUES (?,?,?,?,?,?,?)",
-    [hoten, diachi, sodienthoai, email, username, password, role],
+    "SELECT * FROM user WHERE email = ? OR username = ? ",
+    [email, username],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        if(result.length > 0){
+          res.send('found')
+        }else{
+          db.query(
+            "INSERT INTO user (hoten, diachi, sodienthoai, email, username, password, role) VALUES (?,?,?,?,?,?,?)",
+            [hoten, diachi, sodienthoai, email, username, password, role],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                db.query("select * from user order by id_user desc limit 1", (err, result) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    res.send(result);
+                  }
+                });
+              }
+            }
+          );
+        }
       }
     }
   );
@@ -1034,7 +1045,7 @@ app.post("/userresetpassword", (req, res) => {
           text:
             'Bạn nhận được mail này vì bạn (hoặc một ai đó) đã gửi yêu cầu reset mật khẩu tài khoản của bạn.\n\n'
             + 'Làm ơn hãy nhấp vào đường dẫn sau, hoặc dán nó vào trình duyệt của bạn để hoàn thành quá trình: \n\n'
-            + `http://localhost:3001/resetpwd/${token}\n\n`
+            + `http://hieugiaynhuy.tk/resetpwd/${token}\n\n`
             + 'Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này và kiểm tra lại tài khoản của bạn.\n\n'
             + 'Lưu Ý: Đường dẫn này chỉ có hiệu lực trong vòng 5 phút, tính từ lúc gửi yêu cầu!\n',
         };
@@ -1316,6 +1327,27 @@ app.put("/updatenews", (req, res) => {
       res.send(result);
     }
   });
+});
+
+//LOGIN
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  db.query(
+    "select * from user where username = ? and password = ?",
+    [username,password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if(result.length > 0){
+          res.send(result);
+        }else{
+          res.send('fail')
+        }
+      }
+    }
+  );
 });
 
 
