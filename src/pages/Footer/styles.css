@@ -1,0 +1,96 @@
+@import '~antd/dist/antd.css';
+
+.footer {
+    display: flex;
+    position: relative;
+    padding: 0 5.6rem;
+    width: 100%;
+    /* margin-top: 4.8rem; */
+    background: #f0f0f0;
+    justify-content: space-between;
+    
+}
+
+.footer-logo {
+    height: 40px;
+}
+
+.footer-contact {
+    padding-top: 2rem;
+    /* text-align: center;
+    flex-basis: 20%; */
+    width: 100%;
+}
+
+.footer-contact > ul {
+    display: block;
+
+}
+
+.footer-contact-header {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.footer-contact > p {
+    margin-bottom: 10px;
+    font-size: 18px;
+    display: flex;
+}
+
+.footer-social > li {
+    padding: 10px 20px 0 0;
+}
+
+.social-item > a{
+    color: #696969;
+    display: flex;
+    font-size: 16px;
+}
+
+.social-item > a:hover {
+    color: #fb2c2c;
+}
+
+
+.map-container {
+    height: 250px;
+}
+
+.map {
+    height: 270px;
+}
+
+.footer-contact > p > svg {
+    width: 20px;
+    height: 24px;
+    margin-right: 20px;
+}
+
+.icon-social > svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+.footer-mail > svg {
+    width: 25px;
+    height: 25px;
+}
+
+.footer-map {
+    width: 100%;
+    padding-top: 2rem;
+    margin-bottom: 10px;
+}
+
+.footer-map > h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 572px) {
+    .footer {
+        display: block;
+    }
+}
